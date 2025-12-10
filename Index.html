@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>巫巧如 Wu Ciao-Ru | 產品管理師 Product Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👩‍💼</text></svg>">
+    <style>
+        :root {
+            --primary-color: #2A9D8F; /* 專業青 */
+            --secondary-color: #264653; /* 深藍灰 */
+            --accent-color: #E9C46A; /* 亮點黃 */
+            --bg-light: #F8F9FA;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        /* Header / Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 1. 先定義心跳動畫：緩慢的放大再縮小 */
+		@keyframes heartbeat {
+			0% { transform: scale(1); }      /* 原始大小 */
+			50% { transform: scale(1.08); }  /* 變大 8% (最凸顯的時候) */
+			100% { transform: scale(1); }    /* 回復原始大小 */
+		}
+
+		.tag {
+			/* --- 原本的樣式保持不變 --- */
+			background: rgba(255,255,255,0.2);
+			padding: 4px 12px;
+			border-radius: 50px;
+			font-size: 0.85rem;
+			backdrop-filter: blur(5px);
+			margin: 0 2px; /* 增加一點左右間距，避免放大時撞在一起 */
+			
+			/* --- 新增：心跳脈動效果 --- */
+			display: inline-block; /* 關鍵：一定要設為 block 或 inline-block，變形才會生效 */
+			
+			/* 動畫設定：
+			   heartbeat = 動畫名稱
+			   3s = 持續 3 秒 (調大會更慢，調小會更快)
+			   infinite = 無限循環
+			   ease-in-out = 起步慢、中間快、結尾慢 (看起來最自然)
+			*/
+			animation: heartbeat 3s infinite ease-in-out;
+		}
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        /* 刪除原本的 .section-title 設定，換成下面這一段 */
+		.section-title {
+			position: relative;
+			display: inline-block;
+			
+			/* 字體設定 */
+			font-size: 1.6rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+			
+			/* 固定內距：確保文字位置固定 */
+			padding: 8px 20px; 
+			
+			/* 初始文字顏色 (深色) */
+			color: var(--secondary-color); 
+    
+			cursor: pointer;
+			z-index: 1; 
+			transition: color 0.3s ease; 
+		}
+
+		/* 背景變身設定 */
+		.section-title::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			
+			width: 5px; /* 初始細線 */
+			
+			/* 背景漸層色 */
+			background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+			
+			z-index: -1; 
+			border-radius: 4px; 
+			
+			transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+		}
+
+		/* --- 滑鼠移上去的變化 --- */
+
+		.section-title:hover {
+			/* 這裡改成更有質感的「珍珠米白」 */
+			color: #FAF9F6; 
+			
+			/* 加一點點微弱的陰影，讓文字在深色背景上更立體、更精緻 */
+			text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+		}
+
+		.section-title:hover::before {
+			width: 100%; /* 背景填滿 */
+		}
+
+        /* About Me */
+        .intro-box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-color);
+            margin-bottom: 2rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        /* Experience Timeline */
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .company {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            background: #eee;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .achievements {
+            background: #f0fdfa; /* Very light teal */
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .achievements h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .achievements ul {
+            list-style-type: none;
+        }
+
+        .achievements li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .achievements li::before {
+            content: "✔";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .highlight-number {
+            font-weight: bold;
+            color: #E76F51; /* Highlight Orange */
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .skill-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-desc {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+        }
+
+        /* Education */
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 10px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #fff;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .job-header { flex-direction: column; gap: 5px; }
+            .date { margin-top: 5px; }
+            .edu-item { flex-direction: column; }
+        }
+		
+		/* --- 專長區塊滑鼠互動特效 --- */
+
+		/* --- 專長區塊完整設定 (含星星與邊框特效) --- */
+
+		.skill-box {
+			background: white;
+			padding: 1.5rem;
+			border-radius: 12px;
+			box-shadow: var(--card-shadow);
+			
+			/* 1. 關鍵修正：預先給它 1px 的邊框，顏色設為淺灰或透明 */
+			border: 1px solid #eee; 
+			
+			/* 2. 這是為了星星定位用的 */
+			position: relative; 
+			
+			/* 3. 加上 border-color 的過渡動畫，這樣變色才會滑順 */
+			transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+		}
+
+		/* 星星的設定 (維持不變) */
+		.skill-box::after {
+			content: '✨';
+			position: absolute;
+			top: 5px;
+			right: 12px;
+			font-size: 2.3rem;
+			opacity: 0;
+			transform: translateY(10px) scale(0.5);
+			transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+			pointer-events: none;
+		}
+
+		/* --- 滑鼠移上去的互動 --- */
+
+		.skill-box:hover {
+			/* 4. 這裡現在會生效了，因為原本已經有 1px 的邊框 */
+			border-color: var(--primary-color); 
+			
+			/* 讓陰影也稍微加深一點，更有浮起來的感覺 */
+			box-shadow: 0 10px 25px rgba(42, 157, 143, 0.15);
+			
+			/* (選擇性) 如果想要方塊稍微往上浮一點，可以打開下面這行 */
+			transform: translateY(-5px); */
+		}
+
+		.skill-box:hover::after {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+		
+		/* --- 回到頂部按鈕樣式 --- */
+		#backToTopBtn {
+			/* 固定定位：讓它永遠停在螢幕右下角 */
+			position: fixed;
+			bottom: 30px;
+			right: 100px;
+			z-index: 99; /* 確保它浮在最上層，不會被其他內容蓋住 */
+			
+			/* 形狀與顏色 */
+			width: 50px;
+			height: 50px;
+			border-radius: 50%; /* 變成圓形 */
+			background-color: #E0E0E0; /* 淺灰色背景 */
+			color: var(--secondary-color); /* 圖示顏色使用你的深藍主題色 */
+			border: none;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* 加上一點陰影增加立體感 */
+			
+			/* 內容排版 */
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			
+			/* 預設隱藏狀態 (重要！) */
+			opacity: 0; /* 透明度為 0 */
+			visibility: hidden; /* 隱藏元素 */
+			transform: translateY(20px); /* 初始位置稍微往下沉一點 */
+			
+			/* 動畫過渡效果：讓出現和消失很滑順 */
+			transition: all 0.3s ease-in-out;
+		}
+
+		/* 滑鼠移上去的效果 */
+		#backToTopBtn:hover {
+			background-color: #D0D0D0; /* 背景稍微變深一點 */
+			transform: translateY(0) scale(1.1); /* 按鈕稍微放大 */
+		}
+
+		/* 當 JavaScript 偵測到需要顯示時，會加上這個 class */
+		#backToTopBtn.show-btn {
+			opacity: 1; /* 變不透明 */
+			visibility: visible; /* 顯示 */
+			transform: translateY(0); /* 回到正常位置 */
+		}
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>巫巧如 Wu Ciao-Ru</h1>
+        <h2>產品管理師 <br>
+			Product Manager</h2>
+        <div class="tags">
+            <span class="tag">#供應鏈優化</span>
+            <span class="tag">#專案管理</span>
+            <span class="tag">#數據驅動</span>
+            <span class="tag">#SAP Expert</span>
+            <span class="tag">#跨部門溝通</span>
+        </div>
+        <p style="margin-top: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9;">
+            具備「供應鏈實務視野」與「數據驅動思維」<br>
+			擅長解決生產異常與庫存難題的實戰型 PM
+        </p>
+		
+    </header>
+
+    <div class="container">
+
+        <section id="about">
+            <h3 class="section-title">關於我 About Me</h3>
+            <div class="intro-box">
+                <p class="intro-text">
+                    嗨！我是一位積極進取且樂於學習的產品管理師。我就像變色龍一樣，能靈活應對各種挑戰。我不只是專案的傳聲筒，更是<strong>問題解決者</strong>。
+                    <br><br>
+                    擁有中央大學企管碩士學歷，並在緯創資通累積了紮實的工廠端實戰經驗。我擅長深入產線與物料執行的細節，利用對 SAP 系統與流程的深刻理解，縮短工單結案時間、清理長期滯留庫存，確保任務精準達成。
+                </p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h3 class="section-title">工作經歷 Experience</h3>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">產品管理師 (Product Manager)</div>
+                        <div class="company">緯創資通 Wistron Corp.</div>
+                    </div>
+                    <div class="date">2024/11 - Present</div>
+                </div>
+                <p style="margin-bottom: 1rem;">負責端對端 RMA 管理、生產與物料控管、排程規劃與異常排除。</p>
+                
+                <div class="achievements">
+                    <h4>✨ 關鍵成就 Key Achievements</h4>
+                    <ul>
+                        <li><strong>優化工單結案率：</strong>達成 <span class="highlight-number">80%</span> 工單在 7 天內結案，平均結案時間從 20-30 天大幅縮短至一週內。</li>
+                        <li><strong>清理長期滯留庫存：</strong>與團隊合作，於 <span class="highlight-number">6週內</span> 成功消化 <span class="highlight-number">64台</span> 積壓已久的 RMA 待修機台。</li>
+                        <li><strong>快速解決問題：</strong>運用系統知識，平均 <span class="highlight-number">10分鐘內</span> 即可排除產線遇到的異常問題。</li>
+                        <li><strong>掌握端對端營運：</strong>支援遷廠物料盤點，精通 SAP 操作，掌握從組裝到出貨的完整流程。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">副規劃師</div>
+                        <div class="company">台北市電腦商業同業公會 TCA</div>
+                    </div>
+                    <div class="date">2023/12 - 2024/07</div>
+                </div>
+                <div class="achievements">
+                    <h4>✨ 關鍵成就 Key Achievements</h4>
+                    <ul>
+                        <li><strong>大型專案統籌：</strong>管理「數位服務據點」專案，與 <span class="highlight-number">81位</span> 據點成員協作，達成 <span class="highlight-number">100%</span> 結案率。</li>
+                        <li><strong>高滿意度：</strong>活動滿意度高達 <span class="highlight-number">97%</span>，並製作 5 份數據分析報告供決策使用。</li>
+                        <li><strong>溝通協調：</strong>執行 13 場訪視活動，並成功透過法務協作解決合約歧異。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">專案執行人員</div>
+                        <div class="company">中華徵信所企業股份有限公司</div>
+                    </div>
+                    <div class="date">2023/06 - 2023/09</div>
+                </div>
+                <div class="achievements">
+                    <h4>✨ 關鍵成就 Key Achievements</h4>
+                    <ul>
+                        <li><strong>產品策略：</strong>設計產業鏈資料庫平台核心功能，實際被公司參考並應用於改版。</li>
+                        <li><strong>商業價值：</strong>建立的資料庫隨即售出，為公司創造約 <span class="highlight-number">11萬元</span> 獲利。</li>
+                        <li><strong>獲獎肯定：</strong>於數位之星決賽中獲得特優獎等 4 項殊榮。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h3 class="section-title">核心專長 Core Competencies</h3>
+            <div class="skills-grid">
+                <div class="skill-box">
+                    <div class="skill-title">📦 供應鏈運作與流程優化</div>
+                    <p class="skill-desc">具備 End-to-End 流程診斷能力，擅長運用 <strong>SAP 系統</strong> 進行工單與 BOM 表管理。能解決單點問題並優化上下游協作，降低營運風險。</p>
+                </div>
+                <div class="skill-box">
+                    <div class="skill-title">🤝 專案溝通與整合管理</div>
+                    <p class="skill-desc">擔任技術端與需求端的轉譯者。擅長將模糊需求轉化為可執行計畫，具備管理百人團隊共識及利害關係人談判的經驗。</p>
+                </div>
+                <div class="skill-box">
+                    <div class="skill-title">📊 提案與簡報技巧</div>
+                    <p class="skill-desc">結合數據分析與視覺化設計，將 KPI 指標轉化為決策報表。能針對高階主管或執行團隊客製化簡報，精準回應需求。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h3 class="section-title">學歷 Education</h3>
+            <div class="edu-item">
+                <div>
+                    <strong>國立中央大學 (National Central University)</strong><br>
+                    企業管理學系碩士班
+                </div>
+                <div class="date">2022/09 - 2024/06</div>
+            </div>
+            <div class="edu-item">
+                <div>
+                    <strong>國立中正大學 (National Chung Cheng University)</strong><br>
+                    企業管理學系學士
+                </div>
+                <div class="date">2018/09 - 2022/01</div>
+            </div>
+        </section>
+
+        <section id="certs">
+            <h3 class="section-title">證照與語言 Certificates & Language</h3>
+            <p><strong>語言：</strong> 英文 TOEIC 760</p>
+            <p style="margin-top:10px;"><strong>Google 認證：</strong> Analytics (分析) 個人認證、Adwords 認證、Ads 搜尋廣告認證、Ads 多媒體廣告認證、Ads 影片廣告認證</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <h3>Contact Me</h3>
+        <p>期待能運用我對供應鏈運作的深刻理解，為您的團隊創造價值。</p>
+        <a href="mailto:a6211252000a@gmail.com" class="btn">發送郵件聯繫我</a>
+        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">© 2025 Wu Chiao-Ju. All Rights Reserved.</p>
+    </footer>
+	
+	<button id="backToTopBtn" title="回到頂部">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+    </svg>
+	
+	</button>
+	
+	<script>
+    // 1. 抓取網頁上的元素
+    const backToTopBtn = document.getElementById("backToTopBtn");
+    const headerSection = document.querySelector("header");
+
+    // 2. 監聽「捲動」事件：當使用者滑動頁面時觸發
+    window.onscroll = function() {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        // 計算 Header 的高度 (包含斜角部分)
+        let headerHeight = headerSection.offsetHeight;
+
+        // 判斷：如果目前的捲動高度 > Header 的高度
+        // (document.body.scrollTop 是為了兼容 Safari, document.documentElement.scrollTop 是為了 Chrome/Firefox/IE)
+        if (document.body.scrollTop > headerHeight || document.documentElement.scrollTop > headerHeight) {
+            // 如果滑超過了，加上顯示的 class
+            backToTopBtn.classList.add("show-btn");
+        } else {
+            // 如果還沒滑超過，移除顯示的 class
+            backToTopBtn.classList.remove("show-btn");
+        }
+    }
+
+    // 3. 監聽「點擊」事件：當按鈕被點擊時觸發
+    backToTopBtn.addEventListener("click", function(){
+        // 平滑滾動到頁面最上方
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // 關鍵：讓它慢慢滑上去，而不是瞬間跳轉
+        });
+    });
+</script>
+
+</body>
+</html>
