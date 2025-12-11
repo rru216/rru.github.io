@@ -490,6 +490,61 @@
 		.slide.active {
 			opacity: 1; /* 不透明 (顯示) */
 		}
+		/* --- PPT 與雙按鈕排版設定 --- */
+
+/* 讓按鈕並排顯示，並保持一點距離 */
+.button-group {
+    display: flex;
+    gap: 10px; /* 按鈕之間的距離 */
+    flex-wrap: wrap; /* 如果手機螢幕太窄，自動換行 */
+}
+
+/* PPT 按鈕的樣式 (給它一個不同的顏色，例如深橘色，區分功能) */
+.toggle-ppt-btn {
+    background: transparent;
+    border: 1px solid #E76F51; /* 深橘色邊框 */
+    color: #E76F51;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-ppt-btn:hover {
+    background: #E76F51;
+    color: white;
+}
+
+/* PPT 內容區塊 (預設隱藏) */
+.ppt-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    margin-top: 10px;
+}
+
+/* 響應式 iframe 容器 (這是讓 PPT 在手機上也能等比例縮放的關鍵！) */
+.ppt-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 的比例 */
+    height: 0;
+    background: #000; /* 背景黑底 */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.ppt-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
     </style>
 </head>
 <body>
@@ -572,15 +627,35 @@
 							📸 查看專案活動照片 (3)
 						</button>
 
-						<div class="gallery-content">
-							<div class="slideshow-container">
-								<img src="t1fff.jpg" class="slide active">
-								
-								<img src="t2fff.jpg" class="slide">
-								
-								<img src="t3fff.jpg" class="slide">
-							</div>
-						</div>
+						<div class="gallery-wrapper">
+    <div class="button-group">
+        <button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+            📸 查看專案照片
+        </button>
+
+        <button class="toggle-ppt-btn" onclick="togglePPT(this)">
+            📊 查看專案簡報 (PPT)
+        </button>
+    </div>
+
+    <div class="gallery-content">
+        <div class="slideshow-container">
+            <img src="t1.jpg" class="slide active">
+            <img src="t2.jpg" class="slide">
+            <img src="t3.jpg" class="slide">
+        </div>
+    </div>
+
+    <div class="ppt-content">
+        <div class="ppt-container">
+            <div class="ppt-container">
+    <video controls muted width="100%" style="border-radius: 8px;">
+        <source src="tppt.mp4" type="video/mp4">
+        您的瀏覽器不支援影片標籤。
+    </video>
+</div>
+    </div>
+</div>
 					</div>
 					</ul>
                 </div>
@@ -755,11 +830,43 @@
 
     // 啟動輪播
     startSlideshows();
+
+		// --- PPT 開關功能 ---
+    function togglePPT(btn) {
+        // 1. 找到這顆按鈕所在的群組
+        var group = btn.parentElement;
+        // 2. 找到整個 wrapper
+        var wrapper = group.parentElement;
+        // 3. 在 wrapper 裡面找到 .ppt-content
+        var content = wrapper.querySelector('.ppt-content');
+        
+        // 4. 如果你想讓「開 PPT 時自動關照片」，可以加這段 (選用)
+        // var galleryContent = wrapper.querySelector('.gallery-content');
+        // if(galleryContent.style.maxHeight) { 
+        //     galleryContent.style.maxHeight = null; 
+        //     wrapper.querySelector('.toggle-gallery-btn').innerHTML = "📸 查看專案照片";
+        // }
+
+        // 5. 開關邏輯
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            btn.innerHTML = "📊 查看專案簡報 (PPT)";
+            btn.style.backgroundColor = "transparent";
+            btn.style.color = "#E76F51";
+        } else {
+            // 設定一個足夠大的高度，確保 PPT 能完整顯示
+            content.style.maxHeight = "600px"; 
+            btn.innerHTML = "🔼 收起簡報";
+            btn.style.backgroundColor = "#E76F51";
+            btn.style.color = "white";
+        }
+    }
 </script>
 
 </body>
 
 </html>
+
 
 
 
