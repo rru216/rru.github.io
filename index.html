@@ -490,61 +490,6 @@
 		.slide.active {
 			opacity: 1; /* 不透明 (顯示) */
 		}
-		/* --- PPT 與雙按鈕排版設定 --- */
-
-/* 讓按鈕並排顯示，並保持一點距離 */
-.button-group {
-    display: flex;
-    gap: 10px; /* 按鈕之間的距離 */
-    flex-wrap: wrap; /* 如果手機螢幕太窄，自動換行 */
-}
-
-/* PPT 按鈕的樣式 (給它一個不同的顏色，例如深橘色，區分功能) */
-.toggle-ppt-btn {
-    background: transparent;
-    border: 1px solid #E76F51; /* 深橘色邊框 */
-    color: #E76F51;
-    padding: 8px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-}
-
-.toggle-ppt-btn:hover {
-    background: #E76F51;
-    color: white;
-}
-
-/* PPT 內容區塊 (預設隱藏) */
-.ppt-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out;
-    margin-top: 10px;
-}
-
-/* 響應式 iframe 容器 (這是讓 PPT 在手機上也能等比例縮放的關鍵！) */
-.ppt-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 的比例 */
-    height: 0;
-    background: #000; /* 背景黑底 */
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.ppt-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
     </style>
 </head>
 <body>
@@ -603,6 +548,21 @@
                         <li><strong>清理長期滯留庫存：</strong>與團隊合作，於 <span class="highlight-number">6週內</span> 成功消化 <span class="highlight-number">64台</span> 積壓已久的 RMA 待修機台。</li>
                         <li><strong>快速解決問題：</strong>運用系統知識，平均 <span class="highlight-number">10分鐘內</span> 即可排除產線遇到的異常問題。</li>
                         <li><strong>掌握端對端營運：</strong>支援遷廠物料盤點，精通 SAP 操作，掌握從組裝到出貨的完整流程。</li>
+					<div class="gallery-wrapper">
+    <button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+        📸 查看專案活動照片 (3)
+    </button>
+
+    <div class="gallery-content">
+        <div class="slideshow-container">
+            <img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
+            
+            <img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
+            
+            <img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
+        </div>
+    </div>
+</div>
 					</ul>
                 </div>
             </div>
@@ -621,6 +581,21 @@
                         <li><strong>大型專案統籌：</strong>管理「數位服務據點」專案，與 <span class="highlight-number">81位</span> 據點成員協作，達成 <span class="highlight-number">100%</span> 結案率。</li>
                         <li><strong>高滿意度：</strong>活動滿意度高達 <span class="highlight-number">97%</span>，並製作 5 份數據分析報告供決策使用。</li>
                         <li><strong>溝通協調：</strong>執行 13 場訪視活動，並成功透過法務協作解決合約歧異。</li>
+						<div class="gallery-wrapper">
+						<button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+							📸 查看專案活動照片 (3)
+						</button>
+
+						<div class="gallery-content">
+							<div class="slideshow-container">
+								<img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
+								
+								<img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
+								
+								<img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
+							</div>
+						</div>
+					</div>
 					</ul>
                 </div>
             </div>
@@ -646,17 +621,14 @@
 
     <div class="gallery-content">
         <div class="slideshow-container">
-            <img src="t1.jpg" class="slide active">
+            <img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
             
-            <img src="t2.jpg" class="slide">
+            <img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
             
-            <img src="t3.jpg" class="slide">
+            <img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
         </div>
     </div>
 </div>
-						</div>
-						    </div>
-						</div>
                     </ul>
                 </div>
             </div>
@@ -797,21 +769,7 @@
 
     // 啟動輪播
     startSlideshows();
-
-		
-    }
 </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
