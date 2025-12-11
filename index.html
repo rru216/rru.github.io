@@ -47,6 +47,20 @@
             margin-bottom: 0.5rem;
             letter-spacing: 2px;
         }
+		
+		/* --- 專門設定英文名字的字體 --- */
+		.english-name {
+			/* 使用妳指定的字體系列 */
+			font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+			
+			/* 因為手寫字通常看起來比較小，我們可以稍微放大一點點 (選擇性) */
+			font-size: 0.9em; 
+			
+			/* 稍微拉開一點與中文的距離 */
+			margin-left: 10px;
+			
+			/* (選擇性) 如果想讓英文顏色不一樣，也可以在這裡加 color: ... */
+		}
 
         header h2 {
             font-size: 1.5rem;
@@ -372,7 +386,7 @@
 			/* 固定定位：讓它永遠停在螢幕右下角 */
 			position: fixed;
 			bottom: 30px;
-			right: 50px;
+			right: 100px;
 			z-index: 99; /* 確保它浮在最上層，不會被其他內容蓋住 */
 			
 			/* 形狀與顏色 */
@@ -411,12 +425,80 @@
 			visibility: visible; /* 顯示 */
 			transform: translateY(0); /* 回到正常位置 */
 		}
+		/* --- 照片集與輪播特效 --- */
+
+		.gallery-wrapper {
+			margin-top: 1rem;
+			border-top: 1px dashed #eee;
+			padding-top: 1rem;
+		}
+
+		/* 按鈕樣式 */
+		.toggle-gallery-btn {
+			background: transparent;
+			border: 1px solid var(--primary-color);
+			color: var(--primary-color);
+			padding: 8px 20px;
+			border-radius: 50px;
+			cursor: pointer;
+			font-size: 0.9rem;
+			font-weight: 500;
+			transition: all 0.3s;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.toggle-gallery-btn:hover {
+			background: var(--primary-color);
+			color: white;
+		}
+
+		/* 展開後的容器 */
+		.gallery-content {
+			max-height: 0; /* 預設高度為 0 (隱藏) */
+			overflow: hidden; /* 超出範圍藏起來 */
+			transition: max-height 0.5s ease-out; /* 展開動畫 */
+			margin-top: 10px;
+		}
+
+		/* 輪播區塊 */
+		.slideshow-container {
+			position: relative;
+			width: 100%;
+			/* 設定長寬比，這裡設為 16:9 的高度 */
+			height: 0;
+			padding-bottom: 56.25%; 
+			background: #f0f0f0;
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		/* 圖片通用設定 */
+		.slide {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover; /* 讓圖片填滿但不變形 */
+			opacity: 0; /* 預設透明 */
+			transition: opacity 1s ease-in-out; /* 淡入淡出時間 */
+		}
+
+		/* 顯示中的圖片 */
+		.slide.active {
+			opacity: 1; /* 不透明 (顯示) */
+		}
     </style>
 </head>
 <body>
 
     <header>
-        <h1>巫巧如 Wu Ciao-Ru</h1>
+        <h1>
+		巫巧如 
+			<span class="english-name">Kelly Wu</span>
+		</h1>
         <h2>產品管理師 <br>
 			Product Manager</h2>
         <div class="tags">
@@ -466,7 +548,22 @@
                         <li><strong>清理長期滯留庫存：</strong>與團隊合作，於 <span class="highlight-number">6週內</span> 成功消化 <span class="highlight-number">64台</span> 積壓已久的 RMA 待修機台。</li>
                         <li><strong>快速解決問題：</strong>運用系統知識，平均 <span class="highlight-number">10分鐘內</span> 即可排除產線遇到的異常問題。</li>
                         <li><strong>掌握端對端營運：</strong>支援遷廠物料盤點，精通 SAP 操作，掌握從組裝到出貨的完整流程。</li>
-                    </ul>
+					<div class="gallery-wrapper">
+    <button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+        📸 查看專案活動照片 (3)
+    </button>
+
+    <div class="gallery-content">
+        <div class="slideshow-container">
+            <img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
+            
+            <img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
+            
+            <img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
+        </div>
+    </div>
+</div>
+					</ul>
                 </div>
             </div>
 
@@ -484,7 +581,22 @@
                         <li><strong>大型專案統籌：</strong>管理「數位服務據點」專案，與 <span class="highlight-number">81位</span> 據點成員協作，達成 <span class="highlight-number">100%</span> 結案率。</li>
                         <li><strong>高滿意度：</strong>活動滿意度高達 <span class="highlight-number">97%</span>，並製作 5 份數據分析報告供決策使用。</li>
                         <li><strong>溝通協調：</strong>執行 13 場訪視活動，並成功透過法務協作解決合約歧異。</li>
-                    </ul>
+						<div class="gallery-wrapper">
+						<button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+							📸 查看專案活動照片 (3)
+						</button>
+
+						<div class="gallery-content">
+							<div class="slideshow-container">
+								<img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
+								
+								<img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
+								
+								<img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
+							</div>
+						</div>
+					</div>
+					</ul>
                 </div>
             </div>
 
@@ -502,6 +614,21 @@
                         <li><strong>產品策略：</strong>設計產業鏈資料庫平台核心功能，實際被公司參考並應用於改版。</li>
                         <li><strong>商業價值：</strong>建立的資料庫隨即售出，為公司創造約 <span class="highlight-number">11萬元</span> 獲利。</li>
                         <li><strong>獲獎肯定：</strong>於數位之星決賽中獲得特優獎等 4 項殊榮。</li>
+						<div class="gallery-wrapper">
+    <button class="toggle-gallery-btn" onclick="toggleGallery(this)">
+        📸 查看專案活動照片 (3)
+    </button>
+
+    <div class="gallery-content">
+        <div class="slideshow-container">
+            <img src="https://via.placeholder.com/800x450/264653/FFFFFF?text=Project+Photo+1" class="slide active">
+            
+            <img src="https://via.placeholder.com/800x450/2A9D8F/FFFFFF?text=Project+Photo+2" class="slide">
+            
+            <img src="https://via.placeholder.com/800x450/E9C46A/333333?text=Project+Photo+3" class="slide">
+        </div>
+    </div>
+</div>
                     </ul>
                 </div>
             </div>
@@ -598,9 +725,51 @@
             behavior: "smooth" // 關鍵：讓它慢慢滑上去，而不是瞬間跳轉
         });
     });
+	
+	// --- 照片集功能 ---
+
+    // 1. 收合/展開功能
+    function toggleGallery(btn) {
+        // 找到按鈕隔壁的 gallery-content
+        var content = btn.nextElementSibling;
+        
+        if (content.style.maxHeight) {
+            // 如果已經展開，就收起來
+            content.style.maxHeight = null;
+            btn.innerHTML = "📸 查看專案活動照片"; // 改回原本文字
+        } else {
+            // 如果是收起的，就展開
+            content.style.maxHeight = content.scrollHeight + "px";
+            btn.innerHTML = "🔼 收起照片"; // 改變文字提示
+        }
+    }
+
+    // 2. 自動輪播功能
+    function startSlideshows() {
+        // 抓出所有有輪播功能的區塊
+        let containers = document.querySelectorAll('.slideshow-container');
+        
+        containers.forEach(container => {
+            let slides = container.querySelectorAll('.slide');
+            let currentIndex = 0;
+            
+            // 每 3 秒換一張圖
+            setInterval(() => {
+                // 把目前這張藏起來
+                slides[currentIndex].classList.remove('active');
+                
+                // 計算下一張是誰 (如果是最後一張，就回到第一張)
+                currentIndex = (currentIndex + 1) % slides.length;
+                
+                // 把下一張顯示出來
+                slides[currentIndex].classList.add('active');
+            }, 3000); // 3000 毫秒 = 3 秒
+        });
+    }
+
+    // 啟動輪播
+    startSlideshows();
 </script>
 
 </body>
-
 </html>
-
